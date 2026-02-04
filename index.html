@@ -1,0 +1,797 @@
+<!doctype html>
+<html lang="id">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rizki Mahardika - Portofolio Phunk</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Space+Mono:wght@400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #0a0e27;
+            --primary-light: #f8f9fa;
+            --secondary-dark: #1a1f3a;
+            --secondary-light: #f0f1f3;
+            --accent-neon: #00ff88;
+            --accent-purple: #8b5cf6;
+            --accent-gold: #fbbf24;
+            --text-dark: #e0e7ff;
+            --text-light: #1a1a2e;
+        }
+
+        body.light-mode {
+            background-color: var(--primary-light);
+            color: var(--text-light);
+        }
+
+        body.dark-mode {
+            background-color: var(--primary-dark);
+            color: var(--text-dark);
+        }
+
+        h1, h2, h3, .title-font {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+
+        body, p, span, .body-font {
+            font-family: 'Space Mono', monospace;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% { text-shadow: 0 0 20px rgba(0, 255, 136, 0.5); }
+            50% { text-shadow: 0 0 40px rgba(0, 255, 136, 1); }
+        }
+
+        @keyframes rotate-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes slide-in-left {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes rotateBorder {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes avatarFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        #beranda > .hero-content > div:first-child {
+            animation: avatarFloat 3s ease-in-out infinite;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: linear-gradient(135deg, rgba(10, 14, 39, 0.95) 0%, rgba(26, 31, 58, 0.95) 100%);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--accent-neon);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 8px 32px rgba(0, 255, 136, 0.1);
+        }
+
+        body.light-mode .navbar {
+            background: linear-gradient(135deg, rgba(248, 249, 250, 0.95) 0%, rgba(240, 241, 243, 0.95) 100%);
+            border-bottom: 2px solid var(--accent-purple);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--accent-neon);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: glow-pulse 3s ease-in-out infinite;
+        }
+
+        body.light-mode .logo {
+            color: var(--accent-purple);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: inherit;
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-neon);
+            transition: width 0.3s ease;
+        }
+
+        body.light-mode .nav-menu a::after {
+            background: var(--accent-purple);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .theme-toggle {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid var(--accent-purple);
+            color: inherit;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(139, 92, 246, 0.2);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 60px;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
+        }
+
+        body.light-mode .hero {
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--secondary-light) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            animation: fade-in-up 0.8s ease 0.2s both;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--accent-neon);
+            text-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+            line-height: 1.2;
+            animation: glow-pulse 3s ease-in-out infinite;
+        }
+
+        body.light-mode .hero h1 {
+            color: var(--accent-purple);
+            text-shadow: 0 0 30px rgba(139, 92, 246, 0.3);
+        }
+
+        .hero-tagline {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: inherit;
+            font-weight: 400;
+            letter-spacing: 2px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: 2px solid var(--accent-neon);
+            background: transparent;
+            color: var(--accent-neon);
+            cursor: pointer;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            background: var(--accent-neon);
+            color: var(--primary-dark);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+        }
+
+        .btn.primary {
+            background: var(--accent-neon);
+            color: var(--primary-dark);
+        }
+
+        body.light-mode .btn {
+            border-color: var(--accent-purple);
+            color: var(--accent-purple);
+        }
+
+        body.light-mode .btn:hover {
+            background: var(--accent-purple);
+            color: white;
+        }
+
+        body.light-mode .btn.primary {
+            background: var(--accent-purple);
+            color: white;
+        }
+
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            animation: fade-in-up 0.8s ease;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            color: inherit;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-neon), transparent);
+            border-radius: 2px;
+        }
+
+        body.light-mode .section-title::after {
+            background: linear-gradient(90deg, var(--accent-purple), transparent);
+        }
+
+        .card {
+            background: rgba(139, 92, 246, 0.05);
+            border: 2px solid var(--accent-neon);
+            padding: 2rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        body.light-mode .card {
+            border-color: var(--accent-purple);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.2);
+        }
+
+        body.light-mode .card:hover {
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(139, 92, 246, 0.05);
+            border: 2px solid var(--accent-neon);
+            color: inherit;
+            border-radius: 8px;
+            font-family: 'Space Mono', monospace;
+            transition: all 0.3s ease;
+        }
+
+        body.light-mode .form-input,
+        body.light-mode .form-textarea {
+            border-color: var(--accent-purple);
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+        }
+
+        body.light-mode .form-input:focus,
+        body.light-mode .form-textarea:focus {
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+        }
+
+        .footer {
+            background: rgba(139, 92, 246, 0.1);
+            border-top: 2px solid var(--accent-neon);
+            padding: 3rem 2rem;
+            text-align: center;
+            color: inherit;
+            margin-top: 4rem;
+        }
+
+        body.light-mode .footer {
+            border-top: 2px solid var(--accent-purple);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--accent-neon);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--accent-neon);
+            text-decoration: none;
+        }
+
+        body.light-mode .social-icon {
+            border-color: var(--accent-purple);
+            color: var(--accent-purple);
+        }
+
+        .social-icon:hover {
+            background: var(--accent-neon);
+            color: var(--primary-dark);
+            transform: translateY(-5px);
+        }
+
+        body.light-mode .social-icon:hover {
+            background: var(--accent-purple);
+            color: white;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: rgba(139, 92, 246, 0.2);
+            border: 2px solid var(--accent-neon);
+            color: inherit;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            z-index: 2000;
+            display: none;
+            animation: slide-in-left 0.3s ease;
+        }
+
+        body.light-mode .toast {
+            border-color: var(--accent-purple);
+        }
+
+        .toast.show {
+            display: block;
+        }
+
+        .rating-star {
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .rating-star:hover {
+            color: var(--accent-gold);
+            transform: scale(1.2);
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero {
+                padding-left: 0;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-tagline {
+                font-size: 1rem;
+            }
+
+            .section {
+                padding: 3rem 1rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+ </head>
+ <body class="dark-mode"><!-- Navbar -->
+  <nav class="navbar">
+   <div class="logo"><i class="fas fa-user-circle"></i> <span>RIZKI</span>
+   </div>
+   <ul class="nav-menu">
+    <li><a href="#beranda">Beranda</a></li>
+    <li><a href="#data-pribadi">Data Pribadi</a></li>
+    <li><a href="#pendidikan">Pendidikan</a></li>
+    <li><a href="#keahlian">Keahlian</a></li>
+    <li><a href="#kontak">Kontak</a></li>
+   </ul><button class="theme-toggle" id="theme-toggle"> <i class="fas fa-moon"></i> </button>
+  </nav><!-- Hero Section -->
+  <section class="hero" id="beranda">
+   <div class="hero-content"><!-- Stylized Avatar -->
+    <div style="width: 150px; height: 150px; margin: 0 auto 2rem; position: relative;">
+     <svg viewbox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;"><!-- Outer Circle Background --> <defs>
+       <lineargradient id="avatarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#00ff88;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+       </lineargradient>
+       <filter id="glow">
+        <fegaussianblur stddeviation="3" result="coloredBlur" />
+        <femerge>
+         <femergenode in="coloredBlur" />
+         <femergenode in="SourceGraphic" />
+        </femerge>
+       </filter>
+      </defs> <!-- Main Circle --> <circle cx="100" cy="100" r="95" fill="url(#avatarGradient)" filter="url(#glow)" opacity="0.9" /> <!-- Inner Dark Circle --> <circle cx="100" cy="100" r="85" fill="#0a0e27" stroke="url(#avatarGradient)" stroke-width="2" /> <!-- Geometric Pattern - Top --> <polygon points="100,30 130,60 70,60" fill="#00ff88" opacity="0.3" /> <!-- Geometric Pattern - Bottom --> <polygon points="100,170 130,140 70,140" fill="#8b5cf6" opacity="0.3" /> <!-- Side Gears --> <circle cx="35" cy="100" r="8" fill="#fbbf24" opacity="0.4" /> <circle cx="165" cy="100" r="8" fill="#fbbf24" opacity="0.4" /> <!-- Text: RM --> <text x="100" y="115" font-family="Playfair Display, serif" font-size="56" font-weight="900" text-anchor="middle" fill="#f8f9fa" letter-spacing="-2">
+       RM
+      </text> <!-- Accent Lines --> <line x1="50" y1="100" x2="70" y2="100" stroke="#00ff88" stroke-width="2" opacity="0.6" /> <line x1="130" y1="100" x2="150" y2="100" stroke="#8b5cf6" stroke-width="2" opacity="0.6" /> <!-- Rotating Border Accent --> <circle cx="100" cy="100" r="95" fill="none" stroke="#00ff88" stroke-width="1" stroke-dasharray="5,5" opacity="0.4" style="animation: rotateBorder 6s linear infinite;" />
+     </svg>
+    </div>
+    <h1 id="hero-name">Rizki Mahardika</h1>
+    <p class="hero-tagline" id="hero-tagline">Pelajar | Seniman | Ilustrator</p>
+    <p style="font-size: 1rem; opacity: 0.8; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;"><span id="hero-bio">SMAN 1 Subang | Passion: Seni Desain &amp; Hukum</span></p>
+    <div class="hero-buttons"><button class="btn primary" onclick="scrollTo('#data-pribadi')">Lihat Profil</button> <button class="btn" onclick="scrollTo('#kontak')">Hubungi</button>
+    </div>
+   </div>
+  </section><!-- Data Pribadi Section -->
+  <section class="section" id="data-pribadi">
+   <h2 class="section-title">A. Data Pribadi</h2>
+   <div class="grid">
+    <div class="card">
+     <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--accent-neon);"><i class="fas fa-user"></i> Identitas</h3>
+     <div style="font-size: 0.9rem; line-height: 2;">
+      <p><strong>Nama Lengkap:</strong> <span id="display-full_name">Rizki Mahardika</span></p>
+      <p><strong>Nama Panggilan:</strong> <span id="display-nickname">Iki</span></p>
+      <p><strong>Jenis Kelamin:</strong> <span id="display-gender">Laki-laki</span></p>
+      <p><strong>Lahir:</strong> <span id="display-birth_place_date">Subang, 28 September 2006</span></p>
+     </div>
+    </div>
+    <div class="card">
+     <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--accent-purple);"><i class="fas fa-home"></i> Alamat</h3>
+     <div style="font-size: 0.9rem; line-height: 1.8;">
+      <p><span id="display-address">Jl. Cigadung blok karang mekar, Subang, Jawa Barat</span></p>
+      <p style="margin-top: 1rem;"><strong>Status:</strong> <span id="display-status">Pelajar</span></p>
+     </div>
+    </div>
+   </div>
+  </section><!-- Tentang Saya Section -->
+  <section class="section" id="tentang">
+   <h2 class="section-title">B. Tentang Saya</h2>
+   <div class="card" style="margin-bottom: 2rem;">
+    <h3 style="font-size: 1.2rem; margin-bottom: 1rem; color: var(--accent-neon);"><i class="fas fa-pen-fancy"></i> Deskripsi</h3>
+    <p id="display-bio_1" style="line-height: 1.8; margin-bottom: 1rem;">Saya adalah pelajar di SMAN 1 Subang yang memiliki ketertarikan pada bidang seni desain dari hobi saya sendiri dan bidang hukum. Saya terbiasa dengan kedisiplinan, tanggung jawab, serta kegiatan yang menanamkan nilai kerja sama.</p>
+    <p id="display-bio_2" style="line-height: 1.8;">Saya memiliki cita-cita untuk menjadi seorang seniman karena ingin mengembangkan kelebihan saya pada seni tapi selain itu saya sendiri masih memiliki cita-cita lain saya itu adalah menjadi polisi. Karena ingin bisa membanggakan keluarga dan bisa menegaskan keadilan di masyarakat.</p>
+   </div>
+   <div class="grid">
+    <div class="card">
+     <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--accent-gold);"><i class="fas fa-heart"></i> Hobi</h3>
+     <p id="display-hobbies" style="line-height: 1.6;">Menggambar, Bersepeda, Mereview Film</p>
+    </div>
+    <div class="card">
+     <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--accent-purple);"><i class="fas fa-bullseye"></i> Cita-cita</h3>
+     <p id="display-career_goals" style="line-height: 1.6;">Polisi dan Seniman/Ilustrator</p>
+    </div>
+   </div>
+  </section><!-- Pendidikan Section -->
+  <section class="section" id="pendidikan">
+   <h2 class="section-title">C. Pendidikan</h2>
+   <div class="card" style="margin-bottom: 2rem;">
+    <h3 style="font-size: 1.2rem; margin-bottom: 1rem; color: var(--accent-neon);"><i class="fas fa-graduation-cap"></i> Riwayat Pendidikan</h3>
+    <p id="display-education" style="line-height: 2; font-size: 1rem;">SDN Jayawisatra (2013-2020), SMPN 4 Subang (2020-2023), SMAN 1 Subang (2023-2026)</p>
+   </div>
+   <div class="card">
+    <h3 style="font-size: 1.2rem; margin-bottom: 1rem; color: var(--accent-purple);"><i class="fas fa-road"></i> Rencana Karier</h3>
+    <p id="display-career_plan" style="line-height: 1.8;">Ingin mendaftarkan ke kepolisian atau tentara. Selain itu mungkin ingin membuat jasa menggambar atau desain.</p>
+   </div>
+  </section><!-- Keahlian Section -->
+  <section class="section" id="keahlian">
+   <h2 class="section-title">D. Keahlian</h2>
+   <div class="grid">
+    <div class="card">
+     <h3 style="font-size: 1.2rem; margin-bottom: 1rem; color: var(--accent-neon);"><i class="fas fa-hammer"></i> Hard Skills</h3>
+     <p id="display-hard_skills" style="line-height: 1.8;">Menggambar/Desain</p>
+    </div>
+    <div class="card">
+     <h3 style="font-size: 1.2rem; margin-bottom: 1rem; color: var(--accent-gold);"><i class="fas fa-lightbulb"></i> Soft Skills</h3>
+     <p id="display-soft_skills" style="line-height: 1.8;">Disiplin dan Bertanggung Jawab, Teliti dan Cermat, Manajemen Waktu, Berpikir Analitis, Integritas dan Kejujuran</p>
+    </div>
+   </div>
+  </section><!-- Pengalaman Section -->
+  <section class="section">
+   <h2 class="section-title">E. Pengalaman &amp; Organisasi</h2>
+   <div class="card">
+    <h3 style="font-size: 1.2rem; margin-bottom: 1rem; color: var(--accent-purple);"><i class="fas fa-handshake"></i> Organisasi &amp; Ekstrakurikuler</h3>
+    <p id="display-organizations" style="line-height: 2;">Anggota IRMA, Japanese Club, Dewan Ambalan (Pramuka), BIOS, Smansa Kreatif Art, Koperasi Siswa</p>
+   </div>
+  </section><!-- Kontak Section -->
+  <section class="section" id="kontak">
+   <h2 class="section-title">F. Kontak</h2>
+   <div style="max-width: 600px; margin: 0 auto;">
+    <form id="contact-form">
+     <div class="form-group"><label class="form-label">Nama</label> <input type="text" id="form-name" class="form-input" placeholder="Nama Anda" required>
+     </div>
+     <div class="form-group"><label class="form-label">Email</label> <input type="email" id="form-email" class="form-input" placeholder="Email Anda" required>
+     </div>
+     <div class="form-group"><label class="form-label">Pesan</label> <textarea id="form-message" class="form-textarea" rows="5" placeholder="Pesan Anda..." required></textarea>
+     </div>
+     <div class="form-group"><label class="form-label">Rating Portofolio</label>
+      <div style="display: flex; gap: 0.5rem;"><span class="rating-star" data-rating="1">☆</span> <span class="rating-star" data-rating="2">☆</span> <span class="rating-star" data-rating="3">☆</span> <span class="rating-star" data-rating="4">☆</span> <span class="rating-star" data-rating="5">☆</span>
+      </div><input type="hidden" id="form-rating" value="0">
+     </div><button type="submit" class="btn primary" style="width: 100%; margin-top: 1rem;"> Kirim Pesan </button>
+    </form>
+    <div style="margin-top: 3rem; text-align: center;">
+     <p style="margin-bottom: 1rem; font-weight: 600;">Hubungi Langsung</p>
+     <p style="margin-bottom: 0.5rem;">📧 <a href="mailto:zerorizuki72@gmail.com" style="color: var(--accent-neon); text-decoration: none;">zerorizuki72@gmail.com</a></p>
+     <p style="margin-bottom: 0.5rem;">📱 <a href="https://instagram.com/shin_zerorizuki" target="_blank" rel="noopener noreferrer" style="color: var(--accent-neon); text-decoration: none;">@shin_zerorizuki</a></p>
+     <div class="social-icons"><a href="https://instagram.com/shin_zerorizuki" target="_blank" rel="noopener noreferrer" class="social-icon"><i class="fab fa-instagram"></i></a> <a href="mailto:zerorizuki72@gmail.com" class="social-icon"><i class="fas fa-envelope"></i></a>
+     </div>
+    </div>
+   </div>
+  </section><!-- Footer -->
+  <footer class="footer">
+   <p>© 2024 Rizki Mahardika. Semua Hak Dilindungi.</p>
+   <p style="margin-top: 1rem; font-style: italic; opacity: 0.7;">Seni, Hukum, dan Dedikasi</p>
+  </footer><!-- Toast -->
+  <div id="toast" class="toast"></div>
+  <script>
+        const defaultConfig = {
+            full_name: "Rizki Mahardika",
+            nickname: "Iki",
+            birth_place_date: "Subang, 28 September 2006",
+            gender: "Laki-laki",
+            address: "Jl. Cigadung blok karang mekar, Subang, Jawa Barat",
+            status: "Pelajar",
+            bio_1: "Saya adalah pelajar di SMAN 1 Subang yang memiliki ketertarikan pada bidang seni desain dari hobi saya sendiri dan bidang hukum. Saya terbiasa dengan kedisiplinan, tanggung jawab, serta kegiatan yang menanamkan nilai kerja sama.",
+            bio_2: "Saya memiliki cita-cita untuk menjadi seorang seniman karena ingin mengembangkan kelebihan saya pada seni tapi selain itu saya sendiri masih memiliki cita-cita lain saya itu adalah menjadi polisi. Karena ingin bisa membanggakan keluarga dan bisa menegaskan keadilan di masyarakat.",
+            hobbies: "Menggambar, Bersepeda, Mereview Film",
+            career_goals: "Polisi dan Seniman/Ilustrator",
+            education: "SDN Jayawisatra (2013-2020), SMPN 4 Subang (2020-2023), SMAN 1 Subang (2023-2026)",
+            career_plan: "Ingin mendaftarkan ke kepolisian atau tentara. Selain itu mungkin ingin membuat jasa menggambar atau desain.",
+            hard_skills: "Menggambar/Desain",
+            soft_skills: "Disiplin dan Bertanggung Jawab, Teliti dan Cermat, Manajemen Waktu, Berpikir Analitis, Integritas dan Kejujuran",
+            organizations: "Anggota IRMA, Japanese Club, Dewan Ambalan (Pramuka), BIOS, Smansa Kreatif Art, Koperasi Siswa",
+            email: "zerorizuki72@gmail.com",
+            whatsapp: "",
+            instagram: "shin_zerorizuki"
+        };
+
+        let currentRating = 0;
+        let isDarkMode = true;
+        let allMessages = [];
+
+        const dataHandler = {
+            onDataChanged(data) {
+                allMessages = data;
+            }
+        };
+
+        async function initApp() {
+            const initResult = await window.dataSdk.init(dataHandler);
+            if (!initResult.isOk) {
+                console.error("SDK initialization error");
+            }
+        }
+
+        if (window.elementSdk) {
+            window.elementSdk.init({
+                defaultConfig,
+                onConfigChange: async (config) => {
+                    document.getElementById('hero-name').textContent = config.full_name || defaultConfig.full_name;
+                    document.getElementById('hero-tagline').textContent = ${config.status || defaultConfig.status} | Seniman | Ilustrator;
+                    
+                    document.getElementById('display-full_name').textContent = config.full_name || defaultConfig.full_name;
+                    document.getElementById('display-nickname').textContent = config.nickname || defaultConfig.nickname;
+                    document.getElementById('display-gender').textContent = config.gender || defaultConfig.gender;
+                    document.getElementById('display-birth_place_date').textContent = config.birth_place_date || defaultConfig.birth_place_date;
+                    document.getElementById('display-address').textContent = config.address || defaultConfig.address;
+                    document.getElementById('display-status').textContent = config.status || defaultConfig.status;
+                    document.getElementById('display-bio_1').textContent = config.bio_1 || defaultConfig.bio_1;
+                    document.getElementById('display-bio_2').textContent = config.bio_2 || defaultConfig.bio_2;
+                    document.getElementById('display-hobbies').textContent = config.hobbies || defaultConfig.hobbies;
+                    document.getElementById('display-career_goals').textContent = config.career_goals || defaultConfig.career_goals;
+                    document.getElementById('display-education').textContent = config.education || defaultConfig.education;
+                    document.getElementById('display-career_plan').textContent = config.career_plan || defaultConfig.career_plan;
+                    document.getElementById('display-hard_skills').textContent = config.hard_skills || defaultConfig.hard_skills;
+                    document.getElementById('display-soft_skills').textContent = config.soft_skills || defaultConfig.soft_skills;
+                    document.getElementById('display-organizations').textContent = config.organizations || defaultConfig.organizations;
+                },
+                mapToCapabilities: (config) => ({
+                    recolorables: [
+                        {
+                            get: () => "#00ff88",
+                            set: (value) => { config.primary_color = value; window.elementSdk.setConfig({ primary_color: value }); }
+                        },
+                        {
+                            get: () => "#8b5cf6",
+                            set: (value) => { config.accent_color = value; window.elementSdk.setConfig({ accent_color: value }); }
+                        },
+                        {
+                            get: () => "#fbbf24",
+                            set: (value) => { config.gold_color = value; window.elementSdk.setConfig({ gold_color: value }); }
+                        }
+                    ],
+                    borderables: [],
+                    fontEditable: undefined,
+                    fontSizeable: undefined
+                }),
+                mapToEditPanelValues: (config) => new Map([
+                    ["full_name", config.full_name || defaultConfig.full_name],
+                    ["nickname", config.nickname || defaultConfig.nickname],
+                    ["birth_place_date", config.birth_place_date || defaultConfig.birth_place_date],
+                    ["gender", config.gender || defaultConfig.gender],
+                    ["address", config.address || defaultConfig.address],
+                    ["status", config.status || defaultConfig.status],
+                    ["bio_1", config.bio_1 || defaultConfig.bio_1],
+                    ["bio_2", config.bio_2 || defaultConfig.bio_2],
+                    ["hobbies", config.hobbies || defaultConfig.hobbies],
+                    ["career_goals", config.career_goals || defaultConfig.career_goals],
+                    ["education", config.education || defaultConfig.education],
+                    ["career_plan", config.career_plan || defaultConfig.career_plan],
+                    ["hard_skills", config.hard_skills || defaultConfig.hard_skills],
+                    ["soft_skills", config.soft_skills || defaultConfig.soft_skills],
+                    ["organizations", config.organizations || defaultConfig.organizations],
+                    ["email", config.email || defaultConfig.email],
+                    ["whatsapp", config.whatsapp || defaultConfig.whatsapp],
+                    ["instagram", config.instagram || defaultConfig.instagram]
+                ])
+            });
+        }
+
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            isDarkMode = !isDarkMode;
+            document.body.classList.toggle('dark-mode');
+            document.body.classList.toggle('light-mode');
+        });
+
+        document.querySelectorAll('.rating-star').forEach(star => {
+            star.addEventListener('click', () => {
+                currentRating = parseInt(star.dataset.rating);
+                document.getElementById('form-rating').value = currentRating;
+                document.querySelectorAll('.rating-star').forEach((s, idx) => {
+                    s.textContent = idx < currentRating ? '★' : '☆';
+                });
+            });
+        });
+
+        document.getElementById('contact-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            if (currentRating === 0) {
+                showToast('Silakan berikan rating terlebih dahulu!');
+                return;
+            }
+
+            if (allMessages.length >= 999) {
+                showToast('Batas maksimum pesan telah tercapai.');
+                return;
+            }
+
+            const messageData = {
+                id: Date.now().toString(),
+                name: document.getElementById('form-name').value,
+                email: document.getElementById('form-email').value,
+                message: document.getElementById('form-message').value,
+                rating: currentRating,
+                timestamp: new Date().toISOString()
+            };
+
+            const result = await window.dataSdk.create(messageData);
+
+            if (result.isOk) {
+                showToast('Pesan berhasil dikirim! Terima kasih! 🎉');
+                e.target.reset();
+                currentRating = 0;
+                document.querySelectorAll('.rating-star').forEach(s => s.textContent = '☆');
+            } else {
+                showToast('Gagal mengirim pesan. Silakan coba lagi.');
+            }
+        });
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        function scrollTo(selector) {
+            document.querySelector(selector).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        window.addEventListener('load', () => {
+            initApp();
+        });
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c873c8a92f1712c',t:'MTc3MDE3NzM2OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
